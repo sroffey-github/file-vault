@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>File Vault</title>
+</head>
+<body>
+    
+    {% if not session['username'] %}
+        <form method="POST">
+            <h3>Login Here</h3>
+
+            <label for="username">Username</label>
+            <input type="text" name="usern" placeholder="Email or Phone" id="username">
+
+            <label for="password">Password</label>
+            <input type="password" name="passwd" placeholder="Password" id="password">
+
+            <button>Log In</button><br><br>
+
+            {% for msg in get_flashed_messages() %}
+                <p style="color: rgb(255, 61, 61); text-align: center;">{{ msg }}</p>
+            {% endfor %}
+        </form>
+    {% else %}
+
+    <div class="container">
+
+        <div class="header">
+            <h3>File List</h3>
+        </div>
+
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Date Created</th>
+                    <th>Filename</th>
+                    <th>File Size</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for f in files %}
+                    <tr>
+                        <td>{{f[0]}}</td>
+                        <td>{{f[1]}}</td>
+                        <td>{{f[2]}}</td>
+                        <td>
+                            <a class="download_btn" href="/download/{{f[1]}}">Download</p>
+                            <a class="delete_btn" href="/delete/{{f[1]}}">Delete</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        <a href="/logout">Logout</a>
+    </div>
+
+    {% endif %}
+
+</body>
+</html>
