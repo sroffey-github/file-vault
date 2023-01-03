@@ -50,6 +50,7 @@ def delete(filename):
     else:
         return redirect(url_for('index', files=controller.get_files()))
 
+controller.init()
+
 if __name__ == '__main__':
-    controller.init()
-    app.run(debug=True)
+    app.run(port=8080)
