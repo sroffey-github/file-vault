@@ -10,7 +10,7 @@
 <body>
     
     {% if not session['username'] %}
-        <form method="POST">
+        <form class="login-form" method="POST">
             <h3>Login Here</h3>
 
             <label for="username">Username</label>
@@ -57,6 +57,12 @@
             </tbody>
         </table>
     </div>
+
+    <form class="upload-file" method="POST">
+        <input type="file" multiple>
+        <p>Drag your files here or click in this area.</p>
+        <button type="submit">Upload</button>
+      </form>
 
     <div class="footer">
         <a href="/logout">Logout</a>

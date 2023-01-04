@@ -4,13 +4,13 @@ body {
 
 *,
 *:before,
-*:after{
+*:after {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-form{
+.login-form {
     height: 520px;
     width: 400px;
     background-color: rgba(255,255,255,0.13);
@@ -24,14 +24,14 @@ form{
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
     padding: 50px 35px;
 }
-form *{
+.login-form * {
     font-family: 'Poppins',sans-serif;
     color: #917EFC;
     letter-spacing: 0.5px;
     outline: none;
     border: none;
 }
-form h3{
+.login-form h3 {
     font-size: 32px;
     font-weight: 500;
     line-height: 42px;
@@ -39,13 +39,14 @@ form h3{
     color: #e5e5e5;
 }
 
-label{
+.login-form label {
     display: block;
     margin-top: 30px;
     font-size: 16px;
     font-weight: 500;
 }
-input{
+
+.login-form input {
     display: block;
     height: 50px;
     width: 100%;
@@ -57,10 +58,12 @@ input{
     font-weight: 300;
     color: #e5e5e5;
 }
-::placeholder{
+
+::placeholder {
     color: #e5e5e5;
 }
-button{
+
+.login-form button {
     margin-top: 50px;
     width: 100%;
     background-color: #917EFC;
@@ -72,7 +75,11 @@ button{
     cursor: pointer;
 }
 
-.container *{
+.container {
+    max-height: 80%;
+}
+
+.container * {
     font-family: 'Poppins',sans-serif;
 }
 
@@ -117,6 +124,59 @@ button{
 .container td .download_btn:hover {
     background-color: green;
     color: #e5e5e5;
+}
+
+.upload-file {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -250px;
+    width: 500px;
+    height: 50px;
+    border: 4px dashed #fff;
+}
+
+.upload-file p {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #e5e5e5;
+    font-family: Arial;
+}
+
+.upload-file input {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+}
+
+.upload-file button {
+    color: #fff;
+    background: #917EFC;
+    border: none;
+    width: 500px;
+    height: 35px;
+    margin-top: 40px;
+    margin-left: -4px;
+    border-radius: 4px;
+    transition: all .2s ease;
+    outline: none;
+    cursor: pointer;
+  }
+
+.upload-file button:hover {
+    opacity: .7;
+}
+
+.upload-file button:active {
+    border:0;
 }
 
 .footer {
