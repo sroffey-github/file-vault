@@ -14,7 +14,7 @@ To run this project, you will need to add the following environment variables to
 Note: if running this project using docker, use the following environment variable values:
 
 `DATABASE_PATH=/app/data/`
-`FILES_PATH=/app/data/files`
+`FILES_PATH=/app/data/files/`
 
 ## Usage
 
