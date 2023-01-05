@@ -1,13 +1,16 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, send_from_directory
+from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
 import controller, uuid, os
 
 load_dotenv()
 
 FILES_PATH = os.getenv('FILES_PATH')
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = str(uuid.uuid4())
+app.config['UPLOAD_FOLDER'] = FILES_PATH
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -50,7 +53,34 @@ def delete(filename):
     else:
         return redirect(url_for('index', files=controller.get_files()))
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    if session.get('username'):
+        if request.method == 'POST':
+            print('handling...')
+            if 'file' not in request.files:
+                print('No file part')
+                flash('No file part')
+                return redirect(request.url)
+            file = request.files['file']
+            if file.filename == '':
+                print('No selected file')
+                flash('No selected file')
+                return redirect(request.url)
+            # if file and allowed_file(file.filename): # Uncomment this line to filter file types
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('index', files=controller.get_files()))
+        else:
+            return render_template('upload.html')
+    else:
+        return redirect(url_for('index'))
+
 controller.init()
 
 if __name__ == '__main__':
-    app.run(port=8080)
+    app.run(port=8080, debug=True)

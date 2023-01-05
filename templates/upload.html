@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/upload.css">
+    <title>Upload File</title>
+</head>
+<body>
+
+    <div class="navbar" id="navbar">
+        <a href="/">Home</a>
+        <a class="active" href="/upload">Upload</a>
+    </div>
+
+    <form method="POST" class="upload-file" enctype="multipart/form-data">
+        <input type="file" name="file" multiple>
+        <p>Drag your files here or click in this area.</p>
+        <button type="submit">Upload</button>
+        
+        {% for msg in get_flashed_messages() %}
+          <p style="color: red;">{{ msg }}</p>
+        {% endfor %}
+    </form>
+
+    <div class="footer">
+        <a href="/logout">Logout</a>
+    </div>
+
+    <script>
+        function shrinkNav() {
+          var x = document.getElementById("navbar");
+          if (x.className === "navbar") {
+            x.className += " responsive";
+          } else {
+            x.className = "navbar";
+          }
+        }
+    </script>
+</body>
+</html>

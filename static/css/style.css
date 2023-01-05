@@ -75,6 +75,29 @@ body {
     cursor: pointer;
 }
 
+.navbar {
+    overflow: hidden;
+    background-color: #1D1E26;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+  
+.navbar a:hover {
+    background-color: #917EFC;
+}
+
+.navbar a.active {
+    background-color: #917EFC;
+}
+
 .container {
     max-height: 80%;
 }
@@ -195,6 +218,7 @@ body {
     color: #e5e5e5;
     padding: 20px;
     font-size: 20px;
+    border-radius: 14px 0px 0px 0px;
 }
 
 .footer a:hover {

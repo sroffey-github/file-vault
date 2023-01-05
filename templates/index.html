@@ -29,8 +29,9 @@
 
     <div class="container">
 
-        <div class="header">
-            <h3>File List</h3>
+        <div class="navbar" id="navbar">
+            <a class="active" href="/">Home</a>
+            <a href="/upload">Upload</a>
         </div>
 
         <table class="styled-table">
@@ -58,17 +59,28 @@
         </table>
     </div>
 
-    <form class="upload-file" method="POST">
+    <!-- <form class="upload-file" method="POST">
         <input type="file" multiple>
         <p>Drag your files here or click in this area.</p>
-        <button type="submit">Upload</button>
-      </form>
+        <button name="submit_btn" type="submit">Upload</button>
+    </form> -->
 
     <div class="footer">
         <a href="/logout">Logout</a>
     </div>
 
     {% endif %}
+
+    <script>
+        function shrinkNav() {
+          var x = document.getElementById("navbar");
+          if (x.className === "navbar") {
+            x.className += " responsive";
+          } else {
+            x.className = "navbar";
+          }
+        }
+    </script>
 
 </body>
 </html>
