@@ -7,9 +7,9 @@ A simple password protected file sharing application written with the python fra
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`DATABASE_PATH`
+`DATABASE_PATH` - must end with the database name
 
-`FILES_PATH`
+`FILES_PATH` - must end with a '/'
 
 Note: if running this project using docker, use the following environment variable values:
 
