@@ -6,6 +6,7 @@ import controller, uuid, os
 load_dotenv()
 
 FILES_PATH = os.getenv('FILES_PATH')
+TEMP_FILE_PATH = FILES_PATH + 'temp/'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
@@ -28,8 +29,7 @@ def index():
         else:
             return render_template('index.html')
     else:
-        if request.method == 'POST':
-            pass
+        if request.method == 'POST': pass
         else:
             return render_template('index.html', files=controller.get_files())
 
@@ -61,14 +61,11 @@ def allowed_file(filename):
 def upload():
     if session.get('username'):
         if request.method == 'POST':
-            print('handling...')
             if 'file' not in request.files:
-                print('No file part')
                 flash('No file part')
                 return redirect(request.url)
             file = request.files['file']
             if file.filename == '':
-                print('No selected file')
                 flash('No selected file')
                 return redirect(request.url)
             # if file and allowed_file(file.filename): # Uncomment this line to filter file types
@@ -79,6 +76,42 @@ def upload():
             return render_template('upload.html')
     else:
         return redirect(url_for('index'))
+
+@app.route('/share', methods=['GET', 'POST'])
+def share():
+    if session.get('username'):
+        if request.method == 'POST':
+            if 'file' not in request.files:
+                flash('No file part')
+                return redirect(request.url)
+            file = request.files['file']
+            if file.filename == '':
+                flash('No selected file')
+                return redirect(request.url)
+            # if file and allowed_file(file.filename): # Uncomment this line to filter file types
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(TEMP_FILE_PATH, filename))
+            link = controller.get_link(file.filename)
+            return render_template('share.html', link=f'{request.host_url}share/{link}')
+        else:
+            return render_template('share.html')
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/share/<unique_id>')
+def shared_file(unique_id):
+    filename = controller.check_id(unique_id)
+    if filename == False:
+        return 'Invalid Id'
+    else:
+        filename = filename[0]
+        if os.path.isfile(TEMP_FILE_PATH + filename):
+            try:
+                return send_from_directory(directory=TEMP_FILE_PATH, path=filename, as_attachment=True)
+            finally:
+                controller.delete_share(unique_id, TEMP_FILE_PATH + filename)
+        else:
+            return 'Invald Id'
 
 controller.init()
 
