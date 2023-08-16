@@ -3,32 +3,15 @@
 
 A simple password protected file sharing application written with the python framework **Flask**
 
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file
-
-`DATABASE_PATH` - must end with the database name
-
-`FILES_PATH` - must end with a '/'
-
-Note: if running this project using docker, use the following environment variable values:
-
-`DATABASE_PATH=/app/data/info.db`
-`FILES_PATH=/app/data/files/`
-
-## Usage
-
-```
-git clone https://github.com/sroffey-github/file-vault.git
-cd file-vault
-mkdir -p data/files
-```
-
 ## Docker
 
-This application can be run using docker, first you will have to build the image and then run it with the correct mounted volumes
+This application can be run using docker
+
+- create a `data` directory (the files and database will be stored here for persistance)
+- pull the docker image from githubs registry
+- run the container with the command below
 
 ```
-docker build -t file-vault .
-docker run -dp 8080:8080 -v <path to data directory>:/app/data --name file-vault file-vault
+docker pull ghcr.io/sroffey-github/file-vault
+docker run --rm -dp 8080:8080 -v <absolute path to your data directory>:/app/data ghcr.io/sroffey-github/file-vault
 ```

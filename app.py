@@ -1,11 +1,8 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
-from dotenv import load_dotenv
 import controller, uuid, os
 
-load_dotenv()
-
-FILES_PATH = os.getenv('FILES_PATH')
+FILES_PATH = './data/files/'
 TEMP_FILE_PATH = FILES_PATH + 'temp/'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
@@ -116,4 +113,5 @@ def shared_file(unique_id):
 controller.init()
 
 if __name__ == '__main__':
+    if not os.path.isdir(FILES_PATH): os.mkdir(FILES_PATH)
     app.run(port=8080, debug=False)

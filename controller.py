@@ -1,10 +1,8 @@
-from dotenv import load_dotenv
+from pathlib import Path
 import hashlib, sqlite3, os, uuid
 
-load_dotenv()
-
-DATABASE_PATH = os.getenv('DATABASE_PATH')
-FILES_PATH = os.getenv('FILES_PATH')
+DATABASE_PATH = './data/info.db'
+FILES_PATH = './data/files/'
 TEMP_FILE_PATH = FILES_PATH + 'temp/'
 
 def init():
@@ -68,3 +66,5 @@ def delete_share(unique_id, filename):
     c.execute('DELETE FROM Links WHERE unique_id = ?', (unique_id,))
     conn.commit()
     os.remove(filename)
+
+if not os.path.isdir(FILES_PATH): Path(FILES_PATH).mkdir(parents=True)
